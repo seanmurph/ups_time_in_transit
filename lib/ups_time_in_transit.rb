@@ -108,8 +108,6 @@ module UPS
     #
     def request(options)
       
-      byebug
-      
       # build our request xml
       pickup_date = calculate_pickup_date
       options[:pickup_date] = pickup_date.strftime('%Y%m%d')
@@ -144,7 +142,6 @@ module UPS
     # calculates the next available pickup date based on the current time and the 
     # configured order cutoff time
     def calculate_pickup_date
-      byebug
       now = Time.now
       day_of_week = now.strftime('%w').to_i
       in_weekend = [6,0].include?(day_of_week)
