@@ -108,6 +108,8 @@ module UPS
     #
     def request(options)
       
+      byebug
+      
       # build our request xml
       pickup_date = calculate_pickup_date
       options[:pickup_date] = pickup_date.strftime('%Y%m%d')
@@ -142,10 +144,11 @@ module UPS
     # calculates the next available pickup date based on the current time and the 
     # configured order cutoff time
     def calculate_pickup_date
+      byebug
       now = Time.now
       day_of_week = now.strftime('%w').to_i
       in_weekend = [6,0].include?(day_of_week)
-      in_friday_after_cutoff = day_of_week == 5 and now.hour > @order_cutoff_time
+      in_friday_after_cutoff = (day_of_week == 5) && (now.hour > @order_cutoff_time)
 
       # If we're in a weekend (6 is Sat, 0 is Sun,) or we're in Friday after
       # the cutoff time, then our ship date will move
